@@ -1,6 +1,6 @@
 # Makefile for the STM32F103C8 blink program
 #
-# Kevin Cuzner
+# based on Kevin Cuzner's example
 #
 
 PROJECT = blink
@@ -11,6 +11,7 @@ COMDIR = common
 BINDIR = bin
 OBJDIR = obj
 INCDIR = include
+TOOLDIR = "$(GNU_TOOLCHAIN_PATH)"
 
 # Project target
 CPU = cortex-m3
@@ -34,14 +35,15 @@ ASFLAGS += -mcpu=$(CPU)
 # Flashing
 OCDFLAGS = -f openocd.cfg
 
+
 # Tools
-CC = arm-none-eabi-gcc
-AS = arm-none-eabi-as
-AR = arm-none-eabi-ar
-LD = arm-none-eabi-ld
-OBJCOPY = arm-none-eabi-objcopy
-SIZE = arm-none-eabi-size
-OBJDUMP = arm-none-eabi-objdump
+CC = $(TOOLDIR)/arm-none-eabi-gcc
+AS = $(TOOLDIR)/arm-none-eabi-as
+AR = $(TOOLDIR)/arm-none-eabi-ar
+LD = $(TOOLDIR)/arm-none-eabi-ld
+OBJCOPY = $(TOOLDIR)/arm-none-eabi-objcopy
+SIZE = $(TOOLDIR)/arm-none-eabi-size
+OBJDUMP = $(TOOLDIR)/arm-none-eabi-objdump
 OCD = openocd
 
 RM = rm -rf
@@ -51,12 +53,18 @@ RM = rm -rf
 OBJ := $(addprefix $(OBJDIR)/,$(notdir $(SRC:.c=.o)))
 OBJ += $(addprefix $(OBJDIR)/,$(notdir $(ASM:.s=.o)))
 
+# .PHONY: all
 
-all:: $(BINDIR)/$(PROJECT).bin
+# all:
+# 	@echo "tooldir $(TOOLDIR)"
+# 	@echo "src dir $(SRC)"
+# 	@echo "asm dir $(ASM)"
 
-Build: $(BINDIR)/$(PROJECT).bin
+all:: $(BINDIR)/$(PROJECT).hex
 
-install: $(BINDIR)/$(PROJECT).bin
+build: $(BINDIR)/$(PROJECT).hex
+
+install: $(BINDIR)/$(PROJECT).hex
 	$(OCD) $(OCDFLAGS)
 
 $(BINDIR)/$(PROJECT).hex: $(BINDIR)/$(PROJECT).elf
