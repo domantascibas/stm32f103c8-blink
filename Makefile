@@ -36,7 +36,7 @@ LDFLAGS += -T$(LSCRIPT) -mthumb -mcpu=$(CPU) --specs=nosys.specs
 ASFLAGS += -mcpu=$(CPU)
 
 # Flashing
-OCDFLAGS = -f $(BUILDDIR)/openocd.cfg
+OCDFLAGS = -f $(PROJECTDIR)/openocd.cfg
 
 
 # Tools
