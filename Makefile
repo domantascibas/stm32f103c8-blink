@@ -91,6 +91,12 @@ clean:
 
 clean-install: clean install
 
+format:
+	@astyle --options=./.astylerc --suffix=none --formatted --recursive $(SRCDIR)/*.c,*.h,*.cpp --exclude=$(SRCDIR)/target-specific
+
+format-check:
+	@astyle --options=./.astylerc --suffix=none --formatted --recursive $(SRCDIR)/*.c,*.h,*.cpp --exclude=$(SRCDIR)/target-specific --dry-run
+
 # Compilation
 $(OBJDIR)/%.o: $(COMDIR)/%.c
 	@mkdir -p $(dir $@)

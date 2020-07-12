@@ -22,6 +22,16 @@
             "label": "clean-install",
             "type": "shell",
             "command": "mingw32-make clean-install"
+        },
+        {
+            "label": "format",
+            "type": "shell",
+            "command": "mingw32-make format"
+        },
+        {
+            "label": "format-check",
+            "type": "shell",
+            "command": "mingw32-make format-check"
         }
     ]
 }
