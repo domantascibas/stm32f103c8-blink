@@ -6,24 +6,25 @@
 PROJECT = blink
 PROJECTDIR = project
 
+SRCDIR = source
+
 # Project Structure
 BUILDDIR = $(PROJECTDIR)/build
 BINDIR = $(BUILDDIR)/bin
 OBJDIR = $(BUILDDIR)/obj
-SRCDIR = src
-COMDIR = common
-INCDIR = include
+COMDIR = $(SRCDIR)/common
+TARGETDIR = $(SRCDIR)/target-specific
 TOOLDIR = "$(GNU_TOOLCHAIN_PATH)"
 
 # Project target
 CPU = cortex-m3
 
 # Sources
-SRC = $(wildcard $(SRCDIR)/*.c) $(wildcard $(COMDIR)/*.c)
+SRC = $(wildcard $(COMDIR)/*.c) $(wildcard $(TARGETDIR)/*.c)
 ASM = $(wildcard $(PROJECTDIR)/*.s)
 
 # Include directories
-INCLUDE  = -I$(INCDIR) -Icmsis
+INCLUDE  = -I$(TARGETDIR) -I$(TARGETDIR)/cmsis
 
 # Linker 
 LSCRIPT = $(PROJECTDIR)/STM32F103X8_FLASH.ld
@@ -91,7 +92,7 @@ clean:
 clean-install: clean install
 
 # Compilation
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
+$(OBJDIR)/%.o: $(COMDIR)/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(GCFLAGS) -c $< -o $@
 
@@ -100,7 +101,7 @@ $(OBJDIR)/%.o: $(PROJECTDIR)/%.s
 	$(AS) $(ASFLAGS) -o $@ $<
 
 
-$(OBJDIR)/%.o: $(COMDIR)/%.c
+$(OBJDIR)/%.o: $(TARGETDIR)/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(GCFLAGS) -c $< -o $@
 
