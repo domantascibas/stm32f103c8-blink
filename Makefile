@@ -60,11 +60,11 @@ OBJ += $(addprefix $(OBJDIR)/,$(notdir $(ASM:.s=.o)))
 # 	@echo "src dir $(SRC)"
 # 	@echo "asm dir $(ASM)"
 
-all:: $(BINDIR)/$(PROJECT).hex
+all:: $(BINDIR)/$(PROJECT).bin
 
-build: $(BINDIR)/$(PROJECT).hex
+build: $(BINDIR)/$(PROJECT).bin
 
-install: $(BINDIR)/$(PROJECT).hex
+install: $(BINDIR)/$(PROJECT).bin
 	$(OCD) $(OCDFLAGS)
 
 $(BINDIR)/$(PROJECT).hex: $(BINDIR)/$(PROJECT).elf
