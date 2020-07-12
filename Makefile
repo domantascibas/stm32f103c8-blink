@@ -6,10 +6,11 @@
 PROJECT = blink
 
 # Project Structure
+BUILDDIR = project/build
 SRCDIR = src
 COMDIR = common
-BINDIR = bin
-OBJDIR = obj
+BINDIR = $(BUILDDIR)/bin
+OBJDIR = $(BUILDDIR)/obj
 INCDIR = include
 TOOLDIR = "$(GNU_TOOLCHAIN_PATH)"
 

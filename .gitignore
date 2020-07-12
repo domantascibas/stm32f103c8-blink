@@ -1,4 +1,4 @@
-bin
-obj
+project/build/bin
+project/build/obj
 
 *.sw*
