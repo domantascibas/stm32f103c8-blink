@@ -20,13 +20,13 @@ CPU = cortex-m3
 
 # Sources
 SRC = $(wildcard $(SRCDIR)/*.c) $(wildcard $(COMDIR)/*.c)
-ASM = $(wildcard $(SRCDIR)/*.s) $(wildcard $(COMDIR)/*.s)
+ASM = $(wildcard $(PROJECTDIR)/*.s)
 
 # Include directories
 INCLUDE  = -I$(INCDIR) -Icmsis
 
 # Linker 
-LSCRIPT = STM32F103X8_FLASH.ld
+LSCRIPT = $(PROJECTDIR)/STM32F103X8_FLASH.ld
 
 # C Flags
 GCFLAGS  = -std=c99 -Wall -fno-common -mthumb -mcpu=$(CPU) -DSTM32F103xB --specs=nosys.specs -g -Wa,-ahlms=$(addprefix $(OBJDIR)/,$(notdir $(<:.c=.lst)))
@@ -95,7 +95,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(GCFLAGS) -c $< -o $@
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.s
+$(OBJDIR)/%.o: $(PROJECTDIR)/%.s
 	@mkdir -p $(dir $@)
 	$(AS) $(ASFLAGS) -o $@ $<
 
@@ -104,6 +104,6 @@ $(OBJDIR)/%.o: $(COMDIR)/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(GCFLAGS) -c $< -o $@
 
-$(OBJDIR)/%.o: $(COMDIR)/%.s
-	@mkdir -p $(dir $@)
-	$(AS) $(ASFLAGS) -o $@ $<
+# $(OBJDIR)/%.o: $(COMDIR)/%.s
+# 	@mkdir -p $(dir $@)
+# 	$(AS) $(ASFLAGS) -o $@ $<
