@@ -82,11 +82,11 @@ $(BINDIR)/$(PROJECT).elf: $(OBJ)
 macros:
 	$(CC) $(GCFLAGS) -dM -E - < /dev/null
 
-cleanBuild: clean
-
 clean:
 	$(RM) $(BINDIR)
 	$(RM) $(OBJDIR)
+
+clean-install: clean install
 
 # Compilation
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
