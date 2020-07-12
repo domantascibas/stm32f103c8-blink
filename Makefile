@@ -4,13 +4,14 @@
 #
 
 PROJECT = blink
+PROJECTDIR = project
 
 # Project Structure
-BUILDDIR = project/build
-SRCDIR = src
-COMDIR = common
+BUILDDIR = $(PROJECTDIR)/build
 BINDIR = $(BUILDDIR)/bin
 OBJDIR = $(BUILDDIR)/obj
+SRCDIR = src
+COMDIR = common
 INCDIR = include
 TOOLDIR = "$(GNU_TOOLCHAIN_PATH)"
 
@@ -34,7 +35,7 @@ LDFLAGS += -T$(LSCRIPT) -mthumb -mcpu=$(CPU) --specs=nosys.specs
 ASFLAGS += -mcpu=$(CPU)
 
 # Flashing
-OCDFLAGS = -f openocd.cfg
+OCDFLAGS = -f $(BUILDDIR)/openocd.cfg
 
 
 # Tools
